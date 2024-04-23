@@ -1,13 +1,13 @@
 /************************************PRESENTACIÓN***************************************
 NOMBRE: Cristhian German Ramirez Ruiz.
-FECHA: 18 de Abril de 2024.
-PROGRAMA: Actividad_10.cpp
+FECHA: 22 de Abril de 2024.
+PROGRAMA: Actividad_11.cpp
 CENTRO UNIVERSITARIO DE LOS ALTOS / UNIVERSIDAD DE GUADALAJARA
 INGENIERÍA EN COMPUTACIÓN / 2DO SEMESTRE
 PROFESOR: CARLOS JAVIER CRUZ FRANCO.
 DESCRIPCION: Este programa muestra diferentes opciones para manipular un vector, agregando 
-nuevos elementos al final del mismo o eliminandolos. Ademas muestra la sumatoria del valor
-de los elementos y un listado de estos. Tambien se puede ordenar el vector de forma ascendente
+nuevos elementos al final con recursividad del mismo o eliminandolos. Ademas muestra la sumatoria 
+del valor de los elementos y un listado de estos. Tambien se puede ordenar el vector de forma ascendente
 con los algoritmos Quicksort o burbuja, el usuario elige que algoritmo usar,
 una vez que este ordenado, se puede buscar un elemento en el vector, y si este existe, se puede
 editar o borrar el elemento.
@@ -19,9 +19,11 @@ using namespace std;
 #include "libs/colors.h"
 
 bool Ordenado = false;
+bool Guardado = false;
 
 //Funcionprincipal del programa
 int main(){
+    int tamaño = 0;
     bool Salir = false;
     bool confirm;
     int opci;
@@ -34,14 +36,21 @@ int main(){
         {
         case 1:
             
-            guardado();
+            tamaño = vector_size();
+            guardado(tamaño);
+            if(Guardado){
+                cout << GREEN << "Datos ingresados correctamente" << endl;
+                Guardado = true;
+            }
             break;
         case 2:
             agregado();
             Ordenado = false;
             break;
         case 3:
-            printList(numero);
+            cout << BLUE << "Los elementos son:" << endl;
+            cout << WHITE;
+            PrintList(0);
             break;
         case 4:
             plusList();

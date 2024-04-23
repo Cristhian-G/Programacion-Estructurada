@@ -109,50 +109,58 @@ void Edicion(){
 }
 
 //Funcion para ingresar los numeros
-void guardado(){
-    int contador = 0;
-    int Election;
+int vector_size(){
     int Size = 0;
     if(guardar == false){
         cout << BLUE << "¿Cuantos elementos desea guardar?" << endl;
         cout << YELLOW << "Tenga en cuenta que el limite es de 50 elementos y el minimo 3 elementos" << endl;
         cout << WHITE;
-        while(!(cin >> Size)|| Size < 3 || Size > 50){
+        while(!(std::cin >> Size)|| Size < 3 || Size > 50){
             cerr << RED << "Error, ingrese un tamaño valido"<< endl;
             cout << YELLOW << "Tamaño maximo: 50 elementos\nTamaño minimo: 3 elementos" << endl;
             cin.clear();
             cin.ignore();
         }
-        for(int i = 0; i < Size; i++){//Bucle for que avarca el rango del vector
-        cout << LBLUE << "Ingrese un numero:" << endl;//Mensaje de ingreso de datos
-        cout << WHITE;
-        cin.ignore();
-        numero.push_back(Verify_int());//Funcion para guargar los datos en el vector de forma consecutiva
-        contador+= 1;
-        cout << GRAY "Elija una opcion:"<< endl;
-        cout << LBLUE<< "1) ingresar manual"<< endl;
-        cout << LGREEN << "2) Ingresado automatico " << endl;
-        cout << WHITE;
-        while(!(cin >> Election) || (Election < 1 && Election > 2)){
-            cerr << RED << "Error, selecceione una opcion valida" << endl;
-            cin.clear();
-            cin.ignore();
-        }
+    }
+    return Size;
+}
 
-        if(Election == 2){
-            for(int i = contador; i < Size; i++){
-                numero.push_back(NumRandom());
+void guardado(int Size){
+    if(guardar == false){
+        if(Size > 0){
+            std::cout << LBLUE << "Ingresar datos" << endl;//Mensaje de ingreso de datos
+            cout << WHITE;
+
+            cout << GRAY "Elija una opcion:"<< endl;
+            cout << LBLUE<< "1) ingresar manual"<< endl;
+            cout << LGREEN << "2) Ingresado automatico " << endl;
+            cout << WHITE;
+            if(cin.peek() == '\n')cin.ignore();
+            while(!(std::cin >> Eleccion) || (Eleccion < 1 || Eleccion > 2)){
+                cerr << RED << "Error, seleccione una opcion valida" << endl;
+                cin.clear();
+                cin.ignore();
             }
 
-        break;
+            if(Eleccion == 2){
+                for(int i = 0; i < Size; i++){
+                    numero.push_back(NumRandom());
+                }
+            }else{
+                cout << LBLUE << "Ingrese un numero:" << endl;
+                cout << WHITE;
+                if(cin.peek() == '\n') cin.ignore();
+                numero.push_back(Verify_int());
+                guardado(Size -1);
+            }
+            guardar = true;
         }
-        } // Vuelve el guardado verdadero para evitar sobreescribir los datos del usuario
-        cout << GREEN << "Datos ingresados correctamente" << endl;
-        guardar = true;
-    }else{
-        cerr << YELLOW << "Los datos ya fueron ingresados" << endl;
+        }else{
+            cerr << YELLOW << "Los datos ya fueron ingresados" << endl;
+        }
     }
-}
+
+
 
 //funcion para ingresar los datos de forma dinamica
 void agregado(){
@@ -178,14 +186,11 @@ void agregado(){
  
 
 //fucion para impreimir la lista de datos ingresados
-void printList(vector<int> &numero){
-    
-    const int size = numero.size();
-    cout << BLUE << "Los datos ingresados son: " << endl;
-    cout << WHITE;
-    
-    for(int i = 0; i < size; i++){
-        cout << numero[i] << endl;
+void PrintList(int i){
+    if(i < numero.size()){
+        cout << numero[i]<< endl;
+        i++;
+        PrintList(i);
     }
 }
 
