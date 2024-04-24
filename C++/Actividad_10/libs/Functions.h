@@ -43,7 +43,7 @@ int menu(){
 
 //fubncion de menu secundario para borrar po modificar un elemento
 int menu2(){
-    int Eleccion;
+    size_t Eleccion;
     cout << BLUE << "Seleccione el elemento que desea modificar" << endl;
     cout << LBLUE << "Posicion:" << endl;
     cout << WHITE;

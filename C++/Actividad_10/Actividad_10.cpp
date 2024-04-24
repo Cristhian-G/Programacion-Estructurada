@@ -32,8 +32,7 @@ int main(){
         
         switch (opci)
         {
-        case 1:
-            
+        case 1:   
             guardado();
             break;
         case 2:
